@@ -1,0 +1,5 @@
+{
+ "returncode": 1,
+ "stderr": "error: invalid model selection",
+ "stdout": "{\"conversation_id\": \"\", \"status\": \"ERROR\", \"response\": \"\", \"error\": \"invalid model selection (--model \\\"x\\\" --effort \\\"bogus\\\")\"}"
+}

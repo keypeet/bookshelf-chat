@@ -1,0 +1,5 @@
+{
+ "returncode": 0,
+ "stderr": "",
+ "stdout": "{\n  \"text\": \"I'll transcribe the page.\\n{\\\"text\\\": \\\"บรรทัดแรกของหน้า\\\\n\\\\n“สวัสดี” เขาพูด\\\", \\\"bookPage\\\": 12, \\\"uncertain\\\": [], \\\"isCover\\\": false}\",\n  \"stopReason\": \"end_turn\",\n  \"usage\": {\n    \"input_tokens\": 20072,\n    \"output_tokens\": 998\n  },\n  \"total_cost_usd\": 0.05\n}"
+}

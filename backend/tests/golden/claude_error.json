@@ -1,0 +1,5 @@
+{
+ "returncode": 0,
+ "stderr": "",
+ "stdout": "{\"type\": \"result\", \"is_error\": true, \"result\": \"Credit balance is too low\", \"total_cost_usd\": 0}"
+}

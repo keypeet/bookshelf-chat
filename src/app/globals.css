@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  --bg:#faf8f5; --card:#ffffff; --fg:#1c1917; --fg2:#78716c;
+  --line:#e7e2da; --accent:#2f6f4e; --bubble-me:#e6f0ea;
+  --text-body:17px;
+}
+[data-theme="dark"] {
+  --bg:#14161a; --card:#1f2429; --fg:#e8e6e3; --fg2:#9ca3af;
+  --line:#2a2f36; --accent:#4a9d73; --bubble-me:#243a30;
+}
+[data-font="sm"]{--text-body:15px} [data-font="lg"]{--text-body:19px} [data-font="xl"]{--text-body:22px}
+
+@theme inline {
+  --color-bg: var(--bg);       --color-card: var(--card);
+  --color-fg: var(--fg);       --color-fg2: var(--fg2);
+  --color-line: var(--line);   --color-accent: var(--accent);
+  --color-bubble-me: var(--bubble-me);
+  --font-sans: var(--font-sarabun);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sarabun), sans-serif;
+}
+
+/* สีตัวละคร — ตาม plan.md §4.8: สีเต็มไม่ผ่านเกณฑ์ contrast ตอนใช้เป็นตัวอักษร ต้อง color-mix กับ --fg/--fg2 */
+.speaker-name {
+  color: var(--char); /* fallback เบราว์เซอร์เก่า */
+  color: color-mix(in oklab, var(--char) 72%, var(--fg));
+}
+.avatar-fill {
+  background: var(--char);
+  background: color-mix(in oklab, var(--char) 82%, #1c1917);
+  color: #fff;
+}
+.bubble-rail {
+  background: var(--char); /* เส้นซ้าย 3px — ไม่ใช่ตัวอักษร ใช้สีเต็มได้ */
+}
+
+/* โหมดแตะไล่ (plan.md §4.5/F3.5) — block ที่เพิ่งโผล่ fade+เลื่อนขึ้น 150ms */
+@keyframes tap-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-tap-reveal {
+  animation: tap-reveal 150ms ease-out;
+}
+
+/* plan.md §4.8 Phase 4 — reduce motion เหลือ fade อย่างเดียวหรือไม่มี animation เลย
+   ครอบคลุมทั้ง tap-reveal และ transition ของ header/bottomnav (translate+opacity, Phase 3) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-tap-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  header,
+  nav {
+    transition-property: opacity;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}

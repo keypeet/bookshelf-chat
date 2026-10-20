@@ -1,0 +1,51 @@
+{
+  "id": "v1-c3",
+  "volume": 1,
+  "volumeTitle": "เปิดร้าน",
+  "chapter": 3,
+  "bookChapter": 2,
+  "title": "บทที่ 2 · ช่วงที่ 1",
+  "sourcePages": [
+    3
+  ],
+  "blocks": [
+    {
+      "type": "scene",
+      "text": "ร้านกาแฟ · เล่ม 1 บท 2"
+    },
+    {
+      "type": "narration",
+      "text": "เช้าวันนั้นแดดอ่อนส่องผ่านหน้าต่างไม้ มะลิเปิดร้านเหมือนทุกวัน (ช่วงที่ 1)"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "ton",
+      "text": "ขอลาเต้ร้อนแก้วหนึ่งครับ",
+      "action": "ต้นยิ้ม"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "mali",
+      "text": "ได้เลยค่ะ วันนี้มาเช้านะ"
+    },
+    {
+      "type": "thought",
+      "speaker": "mali",
+      "text": "วันนี้เขาดูเหนื่อย ๆ"
+    },
+    {
+      "type": "dialogue",
+      "speaker": "customer",
+      "speakerNum": 1,
+      "text": "มีขนมปังไหมคะ"
+    },
+    {
+      "type": "gap",
+      "note": "ตัวอย่างช่องว่างของต้นฉบับ"
+    },
+    {
+      "type": "narration",
+      "text": "เสียงเครื่องชงกาแฟดังขึ้นเบา ๆ ก่อนที่ทุกอย่างจะเงียบลง"
+    }
+  ]
+}

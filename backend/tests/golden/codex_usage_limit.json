@@ -1,0 +1,5 @@
+{
+ "returncode": 1,
+ "stderr": "",
+ "stdout": "{\"type\": \"thread.started\", \"thread_id\": \"t\"}\n{\"type\": \"turn.started\"}\n{\"type\": \"error\", \"message\": \"You've hit your usage limit. Upgrade to Plus to continue using Codex, or try again at Oct 28th, 2026 10:47 PM.\"}\n{\"type\": \"turn.failed\", \"error\": {\"message\": \"You've hit your usage limit. Upgrade to Plus to continue using Codex, or try again at Oct 28th, 2026 10:47 PM.\"}}"
+}

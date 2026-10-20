@@ -1,0 +1,5 @@
+{
+ "returncode": 0,
+ "stderr": "",
+ "stdout": "{\"type\": \"result\", \"is_error\": false, \"result\": \"{\\\"text\\\": \\\"บรรทัดแรกของหน้า\\\\n\\\\n“สวัสดี” เขาพูด\\\", \\\"bookPage\\\": 12, \\\"uncertain\\\": [], \\\"isCover\\\": false}\", \"structured_output\": {\"text\": \"บรรทัดแรกของหน้า\\n\\n“สวัสดี” เขาพูด\", \"bookPage\": 12, \"uncertain\": [], \"isCover\": false}, \"total_cost_usd\": 0.0123, \"usage\": {\"input_tokens\": 2, \"output_tokens\": 50}}"
+}

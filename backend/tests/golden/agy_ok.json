@@ -1,0 +1,5 @@
+{
+ "returncode": 0,
+ "stderr": "",
+ "stdout": "{\"event\": \"init\", \"conversation_id\": \"c1\", \"init\": {\"model\": \"gemini-3.8-flash\"}}\n{\"event\": \"step_update\", \"step_update\": {\"step_type\": \"tool\", \"tool_name\": \"view_file\"}}\n{\"event\": \"result\", \"result\": {\"conversation_id\": \"c1\", \"status\": \"SUCCESS\", \"response\": \"```json\\n{\\\"text\\\": \\\"บรรทัดแรกของหน้า\\\\n\\\\n“สวัสดี” เขาพูด\\\", \\\"bookPage\\\": 12, \\\"uncertain\\\": [], \\\"isCover\\\": false}\\n```\\n\", \"structured_output\": {\"text\": \"\", \"isCover\": false}, \"usage\": {\"input_tokens\": 100, \"output_tokens\": 20}}}"
+}

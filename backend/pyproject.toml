@@ -1,0 +1,31 @@
+[project]
+name = "bookshelf-chat-backend"
+version = "0.1.0"
+description = "Local Studio backend: library writes, OCR jobs and the LLM CLI gateway."
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.34",
+    "python-multipart>=0.0.9",
+    "pypdfium2>=4.30",
+    "pillow>=11.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.3", "ruff>=0.16", "httpx>=0.28"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# starlette asks for httpx2 with TestClient; httpx still works and is the approved dependency.
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+# B008: FastAPI's Depends()/File() are meant to be called in argument defaults.
+ignore = ["B008"]

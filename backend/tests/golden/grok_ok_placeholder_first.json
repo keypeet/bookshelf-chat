@@ -1,0 +1,5 @@
+{
+ "returncode": 0,
+ "stderr": "",
+ "stdout": "{\n  \"text\": \"{\\\"text\\\":\\\"\\\",\\\"bookPage\\\":null,\\\"uncertain\\\":[],\\\"isCover\\\":false}{\\\"text\\\":\\\"บรรทัดจริงของหน้า\\\",\\\"bookPage\\\":40,\\\"uncertain\\\":[],\\\"isCover\\\":false}\",\n  \"stopReason\": \"end_turn\",\n  \"usage\": {\n    \"input_tokens\": 19743,\n    \"output_tokens\": 5955\n  }\n}"
+}

@@ -1,0 +1,4191 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "bookshelf-chat Studio API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/providers": {
+      "get": {
+        "tags": [
+          "providers"
+        ],
+        "summary": "List Providers",
+        "description": "Every provider with its install status (a `--version` call; spends nothing).",
+        "operationId": "list_providers_api_providers_get",
+        "parameters": [
+          {
+            "name": "refresh",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Refresh"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProviderOut"
+                  },
+                  "title": "Response List Providers Api Providers Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/providers/{provider_id}/probe": {
+      "post": {
+        "tags": [
+          "providers"
+        ],
+        "summary": "Probe",
+        "description": "One tiny real call, only when the user picks a model, to see if the account may use it.",
+        "operationId": "probe_api_providers__provider_id__probe_post",
+        "parameters": [
+          {
+            "name": "provider_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Provider Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProbeIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProbeOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books": {
+      "get": {
+        "tags": [
+          "books"
+        ],
+        "summary": "List Books",
+        "operationId": "list_books_api_books_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BookCard"
+                  },
+                  "type": "array",
+                  "title": "Response List Books Api Books Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Create Book",
+        "operationId": "create_book_api_books_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookCard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}": {
+      "get": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Get Book",
+        "operationId": "get_book_api_books__book__get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookCard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Update Book",
+        "operationId": "update_book_api_books__book__patch",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookCard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/cover": {
+      "post": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Upload Cover",
+        "description": "Save an uploaded image as assets/cover.webp (resized, re-encoded) and set book.json cover.",
+        "operationId": "upload_cover_api_books__book__cover_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_cover_api_books__book__cover_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookCard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/cover/from-page": {
+      "post": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Cover From Page",
+        "description": "Use one page of a volume's PDF (rendered if needed) as the book cover.",
+        "operationId": "cover_from_page_api_books__book__cover_from_page_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CoverFromPageIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookCard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/chapters": {
+      "put": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Set Chapters",
+        "operationId": "set_chapters_api_books__book__volumes__volume__chapters_put",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChaptersIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookCard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/status": {
+      "get": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Get Status",
+        "operationId": "get_status_api_books__book__status_get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/source": {
+      "post": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Upload Source",
+        "description": "Upload the volume's PDF. It is streamed to workdir/ with a size cap, then checked.",
+        "operationId": "upload_source_api_books__book__volumes__volume__source_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_source_api_books__book__volumes__volume__source_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/pages": {
+      "get": {
+        "tags": [
+          "books"
+        ],
+        "summary": "List Pages",
+        "operationId": "list_pages_api_books__book__volumes__volume__pages_get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagesOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/pages/{image}": {
+      "get": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Page Detail",
+        "operationId": "page_detail_api_books__book__volumes__volume__pages__image__get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          },
+          {
+            "name": "image",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 9999,
+              "minimum": 1,
+              "title": "Image"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/pages/{image}/image": {
+      "get": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Page Image",
+        "operationId": "page_image_api_books__book__volumes__volume__pages__image__image_get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          },
+          {
+            "name": "image",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 9999,
+              "minimum": 1,
+              "title": "Image"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/ocr/queue": {
+      "get": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Ocr Queue",
+        "operationId": "ocr_queue_api_books__book__volumes__volume__ocr_queue_get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueEntry"
+                  },
+                  "title": "Response Ocr Queue Api Books  Book  Volumes  Volume  Ocr Queue Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/pages/{image}/accept": {
+      "post": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Accept Page",
+        "operationId": "accept_page_api_books__book__volumes__volume__pages__image__accept_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          },
+          {
+            "name": "image",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 9999,
+              "minimum": 1,
+              "title": "Image"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceptOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/pages/{image}/keep-raw": {
+      "post": {
+        "tags": [
+          "books"
+        ],
+        "summary": "Keep Raw",
+        "description": "Keep the page's existing raw text and clear this candidate from the queue.",
+        "operationId": "keep_raw_api_books__book__volumes__volume__pages__image__keep_raw_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          },
+          {
+            "name": "image",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 9999,
+              "minimum": 1,
+              "title": "Image"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceptOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ocr/jobs": {
+      "post": {
+        "tags": [
+          "ocr"
+        ],
+        "summary": "Create Job",
+        "description": "With `dryRun`, only plan: which pages would be called and how many calls that is.\n\nSeveral models: each page is called once per model and every page goes to the queue.",
+        "operationId": "create_job_api_ocr_jobs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OcrJobIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OcrJobCreated"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/jobs": {
+      "get": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "List Jobs",
+        "operationId": "list_jobs_api_jobs_get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Book"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kind"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JobOut"
+                  },
+                  "title": "Response List Jobs Api Jobs Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/jobs/{job_id}": {
+      "get": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Get Job",
+        "operationId": "get_job_api_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/jobs/{job_id}/cancel": {
+      "post": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Cancel Job",
+        "operationId": "cancel_job_api_jobs__job_id__cancel_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/jobs/{job_id}/resume": {
+      "post": {
+        "tags": [
+          "jobs"
+        ],
+        "summary": "Resume Job",
+        "description": "Run again only what has no good result yet.",
+        "operationId": "resume_job_api_jobs__job_id__resume_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/convert/jobs": {
+      "post": {
+        "tags": [
+          "convert"
+        ],
+        "summary": "Create Job",
+        "description": "With `dryRun`, only plan: the calls, and what blocks (hard) or warns (soft) before it.",
+        "operationId": "create_job_api_convert_jobs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConvertJobIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConvertJobCreated"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/drafts": {
+      "get": {
+        "tags": [
+          "convert"
+        ],
+        "summary": "List Drafts",
+        "operationId": "list_drafts_api_books__book__volumes__volume__drafts_get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DraftRow"
+                  },
+                  "title": "Response List Drafts Api Books  Book  Volumes  Volume  Drafts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/drafts/{draft_id}": {
+      "get": {
+        "tags": [
+          "convert"
+        ],
+        "summary": "Get Draft",
+        "operationId": "get_draft_api_books__book__drafts__draft_id__get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "draft_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^v\\d{1,3}-c\\d{1,5}$",
+              "title": "Draft Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "convert"
+        ],
+        "summary": "Save Draft",
+        "operationId": "save_draft_api_books__book__drafts__draft_id__patch",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "draft_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^v\\d{1,3}-c\\d{1,5}$",
+              "title": "Draft Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DraftPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/drafts/{draft_id}/publish": {
+      "post": {
+        "tags": [
+          "convert"
+        ],
+        "summary": "Publish Draft",
+        "description": "Refused while a flag, a speaker outside the roster or a coverage failure remains.",
+        "operationId": "publish_draft_api_books__book__drafts__draft_id__publish_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "draft_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^v\\d{1,3}-c\\d{1,5}$",
+              "title": "Draft Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublishOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scan/jobs": {
+      "post": {
+        "tags": [
+          "story"
+        ],
+        "summary": "Create Scan",
+        "operationId": "create_scan_api_scan_jobs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScanJobIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/summarize/jobs": {
+      "post": {
+        "tags": [
+          "story"
+        ],
+        "summary": "Create Summary",
+        "operationId": "create_summary_api_summarize_jobs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SummaryJobIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/proposals": {
+      "get": {
+        "tags": [
+          "story"
+        ],
+        "summary": "List Proposals",
+        "operationId": "list_proposals_api_books__book__proposals_get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Proposal"
+                  },
+                  "title": "Response List Proposals Api Books  Book  Proposals Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/proposals/{proposal_id}/accept": {
+      "post": {
+        "tags": [
+          "story"
+        ],
+        "summary": "Accept Proposal",
+        "operationId": "accept_proposal_api_books__book__proposals__proposal_id__accept_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "proposal_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 40,
+              "title": "Proposal Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Accept Proposal Api Books  Book  Proposals  Proposal Id  Accept Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/proposals/{proposal_id}/reject": {
+      "post": {
+        "tags": [
+          "story"
+        ],
+        "summary": "Reject Proposal",
+        "operationId": "reject_proposal_api_books__book__proposals__proposal_id__reject_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "proposal_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 40,
+              "title": "Proposal Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Reject Proposal Api Books  Book  Proposals  Proposal Id  Reject Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/summaries/approve": {
+      "post": {
+        "tags": [
+          "story"
+        ],
+        "summary": "Approve Summary",
+        "operationId": "approve_summary_api_books__book__volumes__volume__summaries_approve_post",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Approve Summary Api Books  Book  Volumes  Volume  Summaries Approve Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/volumes/{volume}/imported": {
+      "put": {
+        "tags": [
+          "story"
+        ],
+        "summary": "Set Imported",
+        "description": "A volume published before summaries existed skips the summary gates.",
+        "operationId": "set_imported_api_books__book__volumes__volume__imported_put",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          },
+          {
+            "name": "volume",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 999,
+              "minimum": 1,
+              "title": "Volume"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportedIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Set Imported Api Books  Book  Volumes  Volume  Imported Put"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{book}/story": {
+      "get": {
+        "tags": [
+          "story"
+        ],
+        "summary": "Get Story",
+        "operationId": "get_story_api_books__book__story_get",
+        "parameters": [
+          {
+            "name": "book",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoryOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AcceptIn": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{1,31}$",
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "pattern": "^[a-z0-9.\\-]{1,64}$",
+            "title": "Model"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model"
+        ],
+        "title": "AcceptIn"
+      },
+      "AcceptOut": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "reasons"
+        ],
+        "title": "AcceptOut"
+      },
+      "ApproveIn": {
+        "properties": {
+          "chapter": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 999.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chapter"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Summary"
+          },
+          "short": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Short"
+          }
+        },
+        "type": "object",
+        "title": "ApproveIn"
+      },
+      "BlockIn": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "narration",
+              "scene",
+              "gap",
+              "dialogue",
+              "thought"
+            ],
+            "title": "Type"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 20000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "speaker": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speaker"
+          },
+          "speakerNum": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 999.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speakernum"
+          },
+          "action": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action"
+          },
+          "needsReview": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Needsreview"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "BlockIn"
+      },
+      "Body_upload_cover_api_books__book__cover_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_cover_api_books__book__cover_post"
+      },
+      "Body_upload_source_api_books__book__volumes__volume__source_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_source_api_books__book__volumes__volume__source_post"
+      },
+      "BookCard": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language"
+          },
+          "cover": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cover"
+          },
+          "coverColor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Covercolor"
+          },
+          "styleNotes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stylenotes"
+          },
+          "aliases": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aliases"
+          },
+          "volumes": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Volume"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volumes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title"
+        ],
+        "title": "BookCard"
+      },
+      "BookCreate": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 16
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language",
+            "default": "th"
+          },
+          "coverColor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Covercolor"
+          },
+          "styleNotes": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stylenotes"
+          },
+          "aliases": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aliases"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title"
+        ],
+        "title": "BookCreate"
+      },
+      "BookPatch": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 16
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language"
+          },
+          "coverColor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Covercolor"
+          },
+          "styleNotes": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stylenotes"
+          },
+          "aliases": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aliases"
+          },
+          "removeCover": {
+            "type": "boolean",
+            "title": "Removecover",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "BookPatch",
+        "description": "Only the fields sent are changed; send null to remove an optional field."
+      },
+      "BookStatus": {
+        "properties": {
+          "book": {
+            "type": "string",
+            "title": "Book"
+          },
+          "volumes": {
+            "items": {
+              "$ref": "#/components/schemas/VolumeStatus"
+            },
+            "type": "array",
+            "title": "Volumes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "book",
+          "volumes"
+        ],
+        "title": "BookStatus"
+      },
+      "CandidateDetail": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "accept": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accept"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "effort": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effort"
+          },
+          "errorKind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Errorkind"
+          },
+          "durationMs": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Durationms"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OcrResultOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "status",
+          "accept",
+          "reasons",
+          "effort",
+          "errorKind",
+          "durationMs",
+          "result"
+        ],
+        "title": "CandidateDetail"
+      },
+      "CandidateOut": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "accept": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accept"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "status",
+          "accept",
+          "reasons"
+        ],
+        "title": "CandidateOut"
+      },
+      "ChapterBoundary": {
+        "properties": {
+          "n": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "N"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "startImage": {
+            "type": "integer",
+            "maximum": 9999.0,
+            "minimum": 1.0,
+            "title": "Startimage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "n",
+          "startImage"
+        ],
+        "title": "ChapterBoundary"
+      },
+      "ChapterStatus": {
+        "properties": {
+          "n": {
+            "type": "integer",
+            "title": "N"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "startImage": {
+            "type": "integer",
+            "title": "Startimage"
+          },
+          "endImage": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Endimage"
+          },
+          "rawComplete": {
+            "type": "boolean",
+            "title": "Rawcomplete"
+          },
+          "scanned": {
+            "type": "boolean",
+            "title": "Scanned"
+          },
+          "drafted": {
+            "type": "boolean",
+            "title": "Drafted"
+          },
+          "published": {
+            "type": "boolean",
+            "title": "Published"
+          },
+          "summarized": {
+            "type": "boolean",
+            "title": "Summarized"
+          }
+        },
+        "type": "object",
+        "required": [
+          "n",
+          "title",
+          "startImage",
+          "endImage",
+          "rawComplete",
+          "scanned",
+          "drafted",
+          "published",
+          "summarized"
+        ],
+        "title": "ChapterStatus"
+      },
+      "ChapterSummary": {
+        "properties": {
+          "n": {
+            "type": "integer",
+            "title": "N"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "approved": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved"
+          },
+          "pending": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pending"
+          }
+        },
+        "type": "object",
+        "required": [
+          "n",
+          "title",
+          "approved",
+          "pending"
+        ],
+        "title": "ChapterSummary"
+      },
+      "ChaptersIn": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "chapters": {
+            "items": {
+              "$ref": "#/components/schemas/ChapterBoundary"
+            },
+            "type": "array",
+            "title": "Chapters"
+          },
+          "endImage": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 9999.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Endimage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "chapters"
+        ],
+        "title": "ChaptersIn",
+        "description": "Chapter boundaries of one volume.\n\n`endImage` closes the volume at that page (\"จบเล่มที่หน้า N\")."
+      },
+      "ConvertJobCreated": {
+        "properties": {
+          "plan": {
+            "$ref": "#/components/schemas/ConvertPlanOut"
+          },
+          "job": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JobOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "plan",
+          "job"
+        ],
+        "title": "ConvertJobCreated"
+      },
+      "ConvertJobIn": {
+        "properties": {
+          "book": {
+            "type": "string",
+            "title": "Book"
+          },
+          "volume": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "Volume"
+          },
+          "chapter": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "Chapter"
+          },
+          "model": {
+            "$ref": "#/components/schemas/TextModelIn"
+          },
+          "pagesPerCall": {
+            "type": "integer",
+            "maximum": 14.0,
+            "minimum": 1.0,
+            "title": "Pagespercall",
+            "default": 4
+          },
+          "parallel": {
+            "type": "integer",
+            "maximum": 4.0,
+            "minimum": 1.0,
+            "title": "Parallel",
+            "default": 2
+          },
+          "acceptRisk": {
+            "type": "boolean",
+            "title": "Acceptrisk",
+            "default": false
+          },
+          "dryRun": {
+            "type": "boolean",
+            "title": "Dryrun",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "book",
+          "volume",
+          "chapter",
+          "model"
+        ],
+        "title": "ConvertJobIn"
+      },
+      "ConvertPlanOut": {
+        "properties": {
+          "pages": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Pages"
+          },
+          "covers": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Covers"
+          },
+          "batches": {
+            "items": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Batches"
+          },
+          "calls": {
+            "type": "integer",
+            "title": "Calls"
+          },
+          "firstEpisode": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Firstepisode"
+          },
+          "blockers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Blockers"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pages",
+          "covers",
+          "batches",
+          "calls",
+          "firstEpisode",
+          "blockers",
+          "warnings"
+        ],
+        "title": "ConvertPlanOut"
+      },
+      "CoverFromPageIn": {
+        "properties": {
+          "volume": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "Volume"
+          },
+          "image": {
+            "type": "integer",
+            "maximum": 9999.0,
+            "minimum": 1.0,
+            "title": "Image"
+          }
+        },
+        "type": "object",
+        "required": [
+          "volume",
+          "image"
+        ],
+        "title": "CoverFromPageIn"
+      },
+      "CoverageOut": {
+        "properties": {
+          "ratio": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ratio"
+          },
+          "missing": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing"
+          },
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ratio",
+          "missing",
+          "ok"
+        ],
+        "title": "CoverageOut"
+      },
+      "DraftDetail": {
+        "properties": {
+          "draft": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Draft"
+          },
+          "raw": {
+            "items": {
+              "$ref": "#/components/schemas/RawPage"
+            },
+            "type": "array",
+            "title": "Raw"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/CoverageOut"
+          },
+          "problems": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Problems"
+          },
+          "speakers": {
+            "items": {
+              "$ref": "#/components/schemas/Speaker"
+            },
+            "type": "array",
+            "title": "Speakers"
+          },
+          "siblings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Siblings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "draft",
+          "raw",
+          "coverage",
+          "problems",
+          "speakers",
+          "siblings"
+        ],
+        "title": "DraftDetail"
+      },
+      "DraftPatch": {
+        "properties": {
+          "blocks": {
+            "items": {
+              "$ref": "#/components/schemas/BlockIn"
+            },
+            "type": "array",
+            "maxItems": 2000,
+            "title": "Blocks"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "type": "object",
+        "required": [
+          "blocks"
+        ],
+        "title": "DraftPatch"
+      },
+      "DraftRow": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "chapter": {
+            "type": "integer",
+            "title": "Chapter"
+          },
+          "bookChapter": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookchapter"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "images": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Images"
+          },
+          "blocks": {
+            "type": "integer",
+            "title": "Blocks"
+          },
+          "flags": {
+            "type": "integer",
+            "title": "Flags"
+          },
+          "outside": {
+            "type": "integer",
+            "title": "Outside"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "chapter",
+          "bookChapter",
+          "title",
+          "images",
+          "blocks",
+          "flags",
+          "outside"
+        ],
+        "title": "DraftRow"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ImportedIn": {
+        "properties": {
+          "imported": {
+            "type": "boolean",
+            "title": "Imported"
+          }
+        },
+        "type": "object",
+        "required": [
+          "imported"
+        ],
+        "title": "ImportedIn"
+      },
+      "JobItem": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "detail"
+        ],
+        "title": "JobItem"
+      },
+      "JobOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "book": {
+            "type": "string",
+            "title": "Book"
+          },
+          "volume": {
+            "type": "integer",
+            "title": "Volume"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "params": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Params"
+          },
+          "createdAt": {
+            "type": "string",
+            "title": "Createdat"
+          },
+          "updatedAt": {
+            "type": "string",
+            "title": "Updatedat"
+          },
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JobItem"
+            },
+            "type": "object",
+            "title": "Items"
+          },
+          "running": {
+            "type": "boolean",
+            "title": "Running"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "book",
+          "volume",
+          "state",
+          "params",
+          "createdAt",
+          "updatedAt",
+          "items",
+          "running"
+        ],
+        "title": "JobOut"
+      },
+      "ModelChoiceIn": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "maxLength": 32,
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Model"
+          },
+          "effort": {
+            "type": "string",
+            "maxLength": 16,
+            "title": "Effort"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "effort"
+        ],
+        "title": "ModelChoiceIn"
+      },
+      "ModelOut": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "efforts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Efforts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "label",
+          "efforts"
+        ],
+        "title": "ModelOut"
+      },
+      "OcrJobCreated": {
+        "properties": {
+          "plan": {
+            "$ref": "#/components/schemas/OcrPlanOut"
+          },
+          "job": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JobOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "plan",
+          "job"
+        ],
+        "title": "OcrJobCreated"
+      },
+      "OcrJobIn": {
+        "properties": {
+          "book": {
+            "type": "string",
+            "title": "Book"
+          },
+          "volume": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "Volume"
+          },
+          "from": {
+            "type": "integer",
+            "maximum": 9999.0,
+            "minimum": 1.0,
+            "title": "From"
+          },
+          "count": {
+            "type": "integer",
+            "maximum": 2000.0,
+            "minimum": 1.0,
+            "title": "Count"
+          },
+          "parallel": {
+            "type": "integer",
+            "maximum": 8.0,
+            "minimum": 1.0,
+            "title": "Parallel",
+            "default": 2
+          },
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/ModelChoiceIn"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Models"
+          },
+          "dryRun": {
+            "type": "boolean",
+            "title": "Dryrun",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "book",
+          "volume",
+          "from",
+          "count",
+          "models"
+        ],
+        "title": "OcrJobIn",
+        "description": "\"ส่งไป N หน้า ทีละ M หน้า\": `count` pages from `from_`, `parallel` calls at a time."
+      },
+      "OcrPlanOut": {
+        "properties": {
+          "pages": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Pages"
+          },
+          "alreadyDone": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Alreadydone"
+          },
+          "calls": {
+            "type": "integer",
+            "title": "Calls"
+          },
+          "lastPage": {
+            "type": "integer",
+            "title": "Lastpage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pages",
+          "alreadyDone",
+          "calls",
+          "lastPage"
+        ],
+        "title": "OcrPlanOut"
+      },
+      "OcrResultOut": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "bookPage": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookpage"
+          },
+          "uncertain": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Uncertain"
+          },
+          "isCover": {
+            "type": "boolean",
+            "title": "Iscover"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "bookPage",
+          "uncertain",
+          "isCover"
+        ],
+        "title": "OcrResultOut"
+      },
+      "PageDetail": {
+        "properties": {
+          "image": {
+            "type": "integer",
+            "title": "Image"
+          },
+          "lastPage": {
+            "type": "integer",
+            "title": "Lastpage"
+          },
+          "hasImage": {
+            "type": "boolean",
+            "title": "Hasimage"
+          },
+          "raw": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RawOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateDetail"
+            },
+            "type": "array",
+            "title": "Candidates"
+          }
+        },
+        "type": "object",
+        "required": [
+          "image",
+          "lastPage",
+          "hasImage",
+          "raw",
+          "candidates"
+        ],
+        "title": "PageDetail",
+        "description": "One page for the compare screen: image, existing raw, and every model's result."
+      },
+      "PageOut": {
+        "properties": {
+          "image": {
+            "type": "integer",
+            "title": "Image"
+          },
+          "hasImage": {
+            "type": "boolean",
+            "title": "Hasimage"
+          },
+          "raw": {
+            "type": "boolean",
+            "title": "Raw"
+          },
+          "marker": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Marker"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateOut"
+            },
+            "type": "array",
+            "title": "Candidates"
+          }
+        },
+        "type": "object",
+        "required": [
+          "image",
+          "hasImage",
+          "raw",
+          "marker",
+          "candidates"
+        ],
+        "title": "PageOut"
+      },
+      "PagesOut": {
+        "properties": {
+          "lastPage": {
+            "type": "integer",
+            "title": "Lastpage"
+          },
+          "hasSource": {
+            "type": "boolean",
+            "title": "Hassource"
+          },
+          "pages": {
+            "items": {
+              "$ref": "#/components/schemas/PageOut"
+            },
+            "type": "array",
+            "title": "Pages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "lastPage",
+          "hasSource",
+          "pages"
+        ],
+        "title": "PagesOut"
+      },
+      "ProbeIn": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "effort": {
+            "type": "string",
+            "title": "Effort"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model",
+          "effort"
+        ],
+        "title": "ProbeIn"
+      },
+      "ProbeOut": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          },
+          "errorKind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Errorkind"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "durationMs": {
+            "type": "integer",
+            "title": "Durationms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok",
+          "errorKind",
+          "detail",
+          "durationMs"
+        ],
+        "title": "ProbeOut"
+      },
+      "Proposal": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "value": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Value"
+          },
+          "evidence": {
+            "type": "string",
+            "title": "Evidence"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "volume": {
+            "type": "integer",
+            "title": "Volume"
+          },
+          "chapter": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chapter"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "key",
+          "value",
+          "evidence",
+          "state",
+          "volume",
+          "chapter",
+          "source"
+        ],
+        "title": "Proposal"
+      },
+      "ProviderOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/ModelOut"
+            },
+            "type": "array",
+            "title": "Models"
+          },
+          "tasks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tasks"
+          },
+          "vision": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Vision"
+          },
+          "installHint": {
+            "type": "string",
+            "title": "Installhint"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ProviderStatusOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "description",
+          "models",
+          "tasks",
+          "vision",
+          "installHint",
+          "status"
+        ],
+        "title": "ProviderOut"
+      },
+      "ProviderStatusOut": {
+        "properties": {
+          "available": {
+            "type": "boolean",
+            "title": "Available"
+          },
+          "installed": {
+            "type": "boolean",
+            "title": "Installed"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "available",
+          "installed",
+          "detail",
+          "version"
+        ],
+        "title": "ProviderStatusOut"
+      },
+      "PublishOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "published": {
+            "type": "boolean",
+            "title": "Published"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "published"
+        ],
+        "title": "PublishOut"
+      },
+      "QueueEntry": {
+        "properties": {
+          "image": {
+            "type": "integer",
+            "title": "Image"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "rawExists": {
+            "type": "boolean",
+            "title": "Rawexists"
+          },
+          "cover": {
+            "type": "boolean",
+            "title": "Cover"
+          }
+        },
+        "type": "object",
+        "required": [
+          "image",
+          "provider",
+          "model",
+          "reasons",
+          "rawExists",
+          "cover"
+        ],
+        "title": "QueueEntry"
+      },
+      "RawOut": {
+        "properties": {
+          "bookPage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookpage"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "bookPage",
+          "text"
+        ],
+        "title": "RawOut"
+      },
+      "RawPage": {
+        "properties": {
+          "image": {
+            "type": "integer",
+            "title": "Image"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "image",
+          "text"
+        ],
+        "title": "RawPage"
+      },
+      "ScanJobIn": {
+        "properties": {
+          "book": {
+            "type": "string",
+            "title": "Book"
+          },
+          "volume": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "Volume"
+          },
+          "chapter": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "Chapter"
+          },
+          "model": {
+            "$ref": "#/components/schemas/TextModelIn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "book",
+          "volume",
+          "chapter",
+          "model"
+        ],
+        "title": "ScanJobIn"
+      },
+      "SourceOut": {
+        "properties": {
+          "pages": {
+            "type": "integer",
+            "title": "Pages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pages"
+        ],
+        "title": "SourceOut"
+      },
+      "Speaker": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "generic": {
+            "type": "boolean",
+            "title": "Generic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "name",
+          "generic"
+        ],
+        "title": "Speaker"
+      },
+      "StoryOut": {
+        "properties": {
+          "book": {
+            "type": "string",
+            "title": "Book"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "styleNotes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stylenotes"
+          },
+          "characters": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Characters"
+          },
+          "proposals": {
+            "items": {
+              "$ref": "#/components/schemas/Proposal"
+            },
+            "type": "array",
+            "title": "Proposals"
+          },
+          "notes": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "volumes": {
+            "items": {
+              "$ref": "#/components/schemas/VolumeStory"
+            },
+            "type": "array",
+            "title": "Volumes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "book",
+          "title",
+          "styleNotes",
+          "characters",
+          "proposals",
+          "notes",
+          "volumes"
+        ],
+        "title": "StoryOut"
+      },
+      "SummaryJobIn": {
+        "properties": {
+          "book": {
+            "type": "string",
+            "title": "Book"
+          },
+          "volume": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "Volume"
+          },
+          "chapter": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 999.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chapter"
+          },
+          "model": {
+            "$ref": "#/components/schemas/TextModelIn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "book",
+          "volume",
+          "model"
+        ],
+        "title": "SummaryJobIn",
+        "description": "`chapter` null = the volume summary (after every chapter summary is approved)."
+      },
+      "TextModelIn": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "maxLength": 32,
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Model"
+          },
+          "effort": {
+            "type": "string",
+            "maxLength": 16,
+            "title": "Effort"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "effort"
+        ],
+        "title": "TextModelIn"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Volume": {
+        "properties": {
+          "n": {
+            "type": "integer",
+            "maximum": 999.0,
+            "minimum": 1.0,
+            "title": "N"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "cover": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cover"
+          },
+          "chapters": {
+            "items": {
+              "$ref": "#/components/schemas/ChapterBoundary"
+            },
+            "type": "array",
+            "title": "Chapters",
+            "default": []
+          },
+          "closed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closed"
+          },
+          "endImage": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Endimage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "n"
+        ],
+        "title": "Volume"
+      },
+      "VolumeStatus": {
+        "properties": {
+          "n": {
+            "type": "integer",
+            "title": "N"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "closed": {
+            "type": "boolean",
+            "title": "Closed"
+          },
+          "hasSource": {
+            "type": "boolean",
+            "title": "Hassource"
+          },
+          "pages": {
+            "type": "integer",
+            "title": "Pages"
+          },
+          "ocrPages": {
+            "type": "integer",
+            "title": "Ocrpages"
+          },
+          "chatPages": {
+            "type": "integer",
+            "title": "Chatpages"
+          },
+          "publishedPages": {
+            "type": "integer",
+            "title": "Publishedpages"
+          },
+          "publishedChapters": {
+            "type": "integer",
+            "title": "Publishedchapters"
+          },
+          "drafts": {
+            "type": "integer",
+            "title": "Drafts"
+          },
+          "imported": {
+            "type": "boolean",
+            "title": "Imported"
+          },
+          "summarized": {
+            "type": "boolean",
+            "title": "Summarized"
+          },
+          "chapters": {
+            "items": {
+              "$ref": "#/components/schemas/ChapterStatus"
+            },
+            "type": "array",
+            "title": "Chapters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "n",
+          "title",
+          "closed",
+          "hasSource",
+          "pages",
+          "ocrPages",
+          "chatPages",
+          "publishedPages",
+          "publishedChapters",
+          "drafts",
+          "imported",
+          "summarized",
+          "chapters"
+        ],
+        "title": "VolumeStatus"
+      },
+      "VolumeStory": {
+        "properties": {
+          "n": {
+            "type": "integer",
+            "title": "N"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "closed": {
+            "type": "boolean",
+            "title": "Closed"
+          },
+          "imported": {
+            "type": "boolean",
+            "title": "Imported"
+          },
+          "chapters": {
+            "items": {
+              "$ref": "#/components/schemas/ChapterSummary"
+            },
+            "type": "array",
+            "title": "Chapters"
+          },
+          "volume": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volume"
+          },
+          "volumePending": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volumepending"
+          }
+        },
+        "type": "object",
+        "required": [
+          "n",
+          "title",
+          "closed",
+          "imported",
+          "chapters",
+          "volume",
+          "volumePending"
+        ],
+        "title": "VolumeStory"
+      }
+    }
+  }
+}

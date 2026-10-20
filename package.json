@@ -1,0 +1,31 @@
+{
+  "name": "bookshelf-chat",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/sync-library-assets.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/sync-library-assets.mjs",
+    "build": "next build",
+    "start": "next start",
+    "check:content": "node scripts/check-content.mjs",
+    "studio": "node scripts/studio.mjs",
+    "api:types": "node scripts/api-types.mjs",
+    "api:check": "node scripts/api-types.mjs --check"
+  },
+  "dependencies": {
+    "next": "16.2.12",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "openapi-typescript": "^7.13.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

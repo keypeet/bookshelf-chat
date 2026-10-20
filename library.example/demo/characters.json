@@ -1,0 +1,6 @@
+{
+  "mali": { "name": "มะลิ", "short": "มะลิ", "initials": "ม", "color": "#b45309", "side": "right", "role": "เจ้าของร้าน", "order": 1 },
+  "ton": { "name": "ต้น", "short": "ต้น", "initials": "ต", "color": "#1d4ed8", "side": "left", "role": "ลูกค้าประจำ", "order": 2 },
+  "customer": { "name": "ลูกค้า", "short": "ลูกค้า", "color": "#78716c", "side": "left", "generic": true },
+  "unknown": { "name": "ไม่ระบุ", "short": "?", "color": "#78716c", "side": "left", "generic": true }
+}

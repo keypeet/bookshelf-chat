@@ -1,0 +1,5 @@
+{
+ "returncode": 0,
+ "stderr": "jetski: no output produced — a tool required the \"command\" permission",
+ "stdout": "{\"conversation_id\": \"c2\", \"status\": \"SUCCESS\", \"response\": \"\", \"denied_actions\": [{\"action\": \"command\", \"display_name\": \"RunCommand\"}], \"usage\": {}}"
+}

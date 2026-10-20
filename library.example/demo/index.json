@@ -1,0 +1,54 @@
+{
+  "title": "ร้านกาแฟริมคลอง",
+  "author": "ตัวอย่าง",
+  "chapters": [
+    {
+      "id": "v1-c1",
+      "volume": 1,
+      "volumeTitle": "เปิดร้าน",
+      "chapter": 1,
+      "bookChapter": 1,
+      "title": "บทที่ 1 · ช่วงที่ 1"
+    },
+    {
+      "id": "v1-c2",
+      "volume": 1,
+      "volumeTitle": "เปิดร้าน",
+      "chapter": 2,
+      "bookChapter": 1,
+      "title": "บทที่ 1 · ช่วงที่ 2"
+    },
+    {
+      "id": "v1-c3",
+      "volume": 1,
+      "volumeTitle": "เปิดร้าน",
+      "chapter": 3,
+      "bookChapter": 2,
+      "title": "บทที่ 2 · ช่วงที่ 1"
+    },
+    {
+      "id": "v2-c1",
+      "volume": 2,
+      "volumeTitle": "ฝนแรก",
+      "chapter": 1,
+      "bookChapter": 1,
+      "title": "บทที่ 1 · ช่วงที่ 1"
+    },
+    {
+      "id": "v2-c2",
+      "volume": 2,
+      "volumeTitle": "ฝนแรก",
+      "chapter": 2,
+      "bookChapter": 2,
+      "title": "บทที่ 2 · ช่วงที่ 1"
+    },
+    {
+      "id": "v2-c3",
+      "volume": 2,
+      "volumeTitle": "ฝนแรก",
+      "chapter": 3,
+      "bookChapter": 2,
+      "title": "บทที่ 2 · ช่วงที่ 2"
+    }
+  ]
+}

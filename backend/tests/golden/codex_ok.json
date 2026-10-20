@@ -1,0 +1,5 @@
+{
+ "returncode": 0,
+ "stderr": "",
+ "stdout": "{\"type\": \"thread.started\", \"thread_id\": \"t\"}\n{\"type\": \"turn.started\"}\n{\"type\": \"item.completed\", \"item\": {\"id\": \"i0\", \"type\": \"agent_message\", \"text\": \"{\\\"text\\\": \\\"บรรทัดแรกของหน้า\\\\n\\\\n“สวัสดี” เขาพูด\\\", \\\"bookPage\\\": 12, \\\"uncertain\\\": [], \\\"isCover\\\": false}\"}}\n{\"type\": \"turn.completed\", \"usage\": {\"input_tokens\": 21094, \"output_tokens\": 328}}"
+}

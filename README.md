@@ -68,6 +68,8 @@ Studio เขียนไฟล์ลง `library/` แต่ไม่ commit �
 | `STUDIO_ALLOWED_ORIGINS` | backend | origin ที่ยอมให้ส่งคำสั่ง (ค่าเริ่ม localhost:3000) |
 | `STUDIO_<PROVIDER>_BINARY` | backend | path ของ CLI ถ้าหาเองไม่เจอ (`CLAUDE`, `CODEX`, `AGY`, `GROK`) |
 | `SITE_PASSCODE` | Reader ที่ deploy | ตั้งแล้วทุกหน้าต้องใส่รหัสที่ `/unlock` ก่อน; ไม่ตั้ง = เปิดโล่ง |
+| `LIBRARY_TOKEN` | build บน Vercel/CI | GitHub fine-grained token (Contents: read-only, เฉพาะ repo เนื้อหา) ให้ `scripts/fetch-library.mjs` clone เนื้อหา |
+| `LIBRARY_REPO`, `LIBRARY_REF` | build บน Vercel/CI | repo และ branch ของเนื้อหา (ค่าเริ่ม `keypeet/book-library`, `main`) |
 
 ## ตรวจก่อนส่งงาน
 
@@ -83,13 +85,15 @@ uv run --directory backend ruff check
 
 เทสต์ backend ไม่เรียก CLI จริง (ใช้ผลที่อัดไว้ใน `backend/tests/golden/`)
 
-## Deploy (Reader เท่านั้น)
+## Deploy (Reader เท่านั้น, Vercel)
 
-1. ตั้ง `SITE_PASSCODE` ใน env ของโฮสต์ ทุกหน้าใส่ `noindex` อยู่แล้ว
-2. build command ของโฮสต์ต้อง clone repo เนื้อหาไว้เป็น `library/` ก่อน ด้วย token ที่อ่านได้อย่างเดียวและเข้าถึงได้เฉพาะ repo นั้น
-   แล้วจึงรัน `npm run build` (ขั้น prebuild คัดลอกปกและรูปตัวละครไป `public/books/`)
-3. ตั้ง deploy hook ให้ build ใหม่เมื่อ push เนื้อหา
-4. ตรวจว่า build บนโฮสต์อ่าน `library/` จริง ไม่ใช่ `library.example/`
+1. Import repo นี้ใน Vercel (Framework: Next.js) ไม่ต้องแก้ build command:
+   Vercel รัน `npm run vercel-build` เอง ซึ่งเรียก `scripts/fetch-library.mjs` (clone repo เนื้อหาเป็น `library/`) แล้วจึง `npm run build`
+   (ขั้น prebuild คัดลอกปกและรูปตัวละครไป `public/books/`)
+2. ตั้ง env ใน Vercel: `SITE_PASSCODE` และ `LIBRARY_TOKEN` (ห้ามตั้ง `LIBRARY_DIR` หรือ `STUDIO`) ทุกหน้าใส่ `noindex` อยู่แล้ว
+   ไม่มี token หรือ clone ไม่สำเร็จ build จะล้ม แทนที่จะได้เว็บที่ไม่มีหนังสือ; สคริปต์ไม่รันในเครื่อง (ไม่ลบ `library/` ของเรา)
+3. สร้าง Deploy Hook ใน Vercel แล้วให้ repo เนื้อหาเรียก hook ทุกครั้งที่ push เพื่อ build ใหม่
+4. ดู log ของ build ว่ามีบรรทัด `fetch-library: ... (N books: ...)` และจำนวนหน้าใกล้เคียงกับ build ในเครื่อง
 
 passcode กันคนทั่วไปได้ แต่ไม่ใช่การกันเด็ดขาด: คนที่ได้รหัสไปก็อ่านเนื้อหาได้
 

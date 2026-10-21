@@ -7,6 +7,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/sync-library-assets.mjs",
     "build": "next build",
+    "vercel-build": "node scripts/fetch-library.mjs && npm run build",
     "start": "next start",
     "check:content": "node scripts/check-content.mjs",
     "studio": "node scripts/studio.mjs",

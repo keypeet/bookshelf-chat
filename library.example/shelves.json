@@ -1,0 +1,8 @@
+{
+  "shelves": [
+    { "id": "sample", "name": "เรื่องตัวอย่าง", "order": 1 }
+  ],
+  "placements": {
+    "demo": ["sample"]
+  }
+}

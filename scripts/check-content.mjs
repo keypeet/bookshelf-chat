@@ -37,7 +37,56 @@ const books = fs.existsSync(LIBRARY_DIR)
       .sort()
   : []
 
+function checkShelves(bookSlugs) {
+  const filePath = path.join(LIBRARY_DIR, 'shelves.json')
+  if (!fs.existsSync(filePath)) return
+  let data
+  try {
+    data = readJson(filePath)
+  } catch (err) {
+    fail(`shelves.json: อ่านไม่สำเร็จ: ${err.message}`)
+    return
+  }
+  if (!data || !Array.isArray(data.shelves) || !data.placements || typeof data.placements !== 'object' || Array.isArray(data.placements)) {
+    fail('shelves.json: ต้องเป็น { shelves: [], placements: {} }')
+    return
+  }
+  const ids = new Set()
+  for (const [i, shelf] of data.shelves.entries()) {
+    const where = `shelves.json shelves[${i}]`
+    if (!shelf || typeof shelf.id !== 'string' || shelf.id.trim() === '') {
+      fail(`${where}: id ต้องเป็นข้อความที่ไม่ว่าง`)
+      continue
+    }
+    if (shelf.id.includes('/') || /\s/.test(shelf.id)) fail(`${where}: id "${shelf.id}" ใช้ใน URL ไม่ได้`)
+    if (ids.has(shelf.id)) fail(`${where}: id "${shelf.id}" ซ้ำ`)
+    ids.add(shelf.id)
+    if (typeof shelf.name !== 'string' || shelf.name.trim() === '') fail(`${where}: name ต้องเป็นข้อความที่ไม่ว่าง`)
+    if (typeof shelf.order !== 'number' || !Number.isFinite(shelf.order)) fail(`${where}: order ต้องเป็นตัวเลข`)
+  }
+  const known = new Set(bookSlugs)
+  for (const [slug, shelfIds] of Object.entries(data.placements)) {
+    if (!known.has(slug)) fail(`shelves.json placements: ไม่มีเรื่อง "${slug}"`)
+    if (!Array.isArray(shelfIds)) {
+      fail(`shelves.json placements.${slug}: ต้องเป็นรายการ id ของชั้น`)
+      continue
+    }
+    const seen = new Set()
+    for (const id of shelfIds) {
+      if (typeof id !== 'string' || !ids.has(id)) fail(`shelves.json placements.${slug}: ไม่มีชั้น "${id}"`)
+      if (seen.has(id)) fail(`shelves.json placements.${slug}: ชั้น "${id}" ซ้ำ`)
+      seen.add(id)
+    }
+  }
+}
+
+checkShelves(books)
+
 if (books.length === 0) {
+  if (hasError) {
+    console.error('\ncheck-content: พบข้อผิดพลาด (ดู ✗ ด้านบน)')
+    process.exit(1)
+  }
   console.log(`check-content: ไม่มีหนังสือใน ${LIBRARY_DIR} — ผ่าน`)
   process.exit(0)
 }

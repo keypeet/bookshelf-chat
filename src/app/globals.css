@@ -17,6 +17,14 @@
   --color-line: var(--line);   --color-accent: var(--accent);
   --color-bubble-me: var(--bubble-me);
   --font-sans: var(--font-sarabun);
+  /* โทนของร่าง SITE_V2 — ไม่แทน token ของหน้าเดิม */
+  --color-paper: #eee8db;
+  --color-paper-deep: #e4dccd;
+  --color-paper-light: #f6f1e7;
+  --color-ink: #25231f;
+  --color-ink-soft: rgb(37 35 31 / 0.62);
+  --color-hairline: rgb(37 35 31 / 0.19);
+  --font-serif: var(--font-noto-serif-thai), "Iowan Old Style", Georgia, serif;
 }
 
 body {

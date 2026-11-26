@@ -9,6 +9,7 @@ import { bookChapterTitle, chapterHref, parseBookChapterId } from '@/lib/routes'
 interface ContinueReadingButtonProps {
   book: string
   indexEntries: IndexEntry[]
+  siteV2?: boolean
 }
 
 interface ButtonTarget {
@@ -62,7 +63,7 @@ function resolveTarget(book: string, indexEntries: IndexEntry[]): ButtonTarget |
   return { chapterId: lastEntry.id, label: `อ่านอีกครั้ง — ${lastEntry.title}` }
 }
 
-export default function ContinueReadingButton({ book, indexEntries }: ContinueReadingButtonProps) {
+export default function ContinueReadingButton({ book, indexEntries, siteV2 = false }: ContinueReadingButtonProps) {
   const first = indexEntries[0]
   const [target, setTarget] = useState<ButtonTarget | null>(
     first ? { chapterId: first.id, label: 'เริ่มอ่าน' } : null
@@ -77,7 +78,7 @@ export default function ContinueReadingButton({ book, indexEntries }: ContinueRe
 
   return (
     <Link
-      href={chapterHref(book, target.chapterId)}
+      href={chapterHref(book, target.chapterId, siteV2)}
       className="inline-block w-full max-w-xs rounded-full bg-accent px-6 py-3 text-center text-[15px] font-semibold text-white sm:w-auto"
     >
       {target.label}

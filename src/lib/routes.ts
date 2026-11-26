@@ -1,13 +1,15 @@
 // URL ของหน้าเรื่อง/ตอน ที่เดียว — ใช้ได้ทั้ง server และ client component
 
-export function bookHref(book: string): string {
-  return `/b/${book}`
+// siteV2 = หน้าใหม่หลัง SITE_V2=1 (ส่งเป็นค่าเข้ามา เพราะ client component อ่าน env ฝั่ง server ไม่ได้)
+export function bookHref(book: string, siteV2 = false): string {
+  return siteV2 ? `/book/${book}` : `/b/${book}`
 }
 
 // id สังเคราะห์ของโหมดอ่านทั้งบท `v{n}-book{m}` ไม่มีไฟล์ตอน → ชี้ไป route ทั้งบทแทน
-export function chapterHref(book: string, id: string): string {
+// อ่านทีละช่วงยังอยู่ที่ /b/ จนกว่าจะมีหน้าอ่านใหม่ /read/
+export function chapterHref(book: string, id: string, siteV2 = false): string {
   const whole = parseBookChapterId(id)
-  if (whole) return `/b/${book}/chapter/${whole.volume}/${whole.bookChapter}`
+  if (whole) return `${bookHref(book, siteV2)}/chapter/${whole.volume}/${whole.bookChapter}`
   return `/b/${book}/${id}`
 }
 

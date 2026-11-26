@@ -74,6 +74,13 @@ export interface BookChapterBoundary {
   startImage: number // เลขภาพหน้าแรกของบท
 }
 
+// library/shelves.json — ไม่มีไฟล์นี้ = ชั้นเดียว id "all" ชื่อ "ทั้งหมด" (ดู getShelves)
+export interface Shelf {
+  id: string
+  name: string
+  order: number
+}
+
 export interface BookVolume {
   n: number
   title?: string

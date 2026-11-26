@@ -27,6 +27,7 @@ interface ReaderShellProps {
   chapters: IndexEntry[]
   blocks: Block[]
   resolvedSpeakers: Record<string, ResolvedCharacter>
+  siteV2?: boolean
 }
 
 const TAP_MAX_DISTANCE = 10
@@ -36,7 +37,7 @@ const TAP_MAX_DURATION = 500
 // รับ blocks/resolvedSpeakers เป็น props จาก server component (page.tsx) เพื่อควบคุม revealCount ของโหมดแตะไล่
 // resolvedSpeakers ต้อง resolve ที่ server มาแล้ว (characters.ts ใช้ fs, ห้ามเรียกในนี้)
 // ไม่ import content.ts ตรงๆ (ยังคง compliant กับ §3 — เนื้อหามาจาก props เท่านั้น)
-export default function ReaderShell({ book, chapter, chapters, blocks, resolvedSpeakers }: ReaderShellProps) {
+export default function ReaderShell({ book, chapter, chapters, blocks, resolvedSpeakers, siteV2 = false }: ReaderShellProps) {
   const router = useRouter()
   const { visible: chromeVisible, toggle: toggleChrome, setEndLock } = useReaderChrome()
   const { savedPosition, scrollToSaved, dismiss: dismissPosition } = useReadingPosition(book, chapter.id)
@@ -64,9 +65,9 @@ export default function ReaderShell({ book, chapter, chapters, blocks, resolvedS
 
   const navigate = useCallback(
     (chapterId: string) => {
-      router.push(chapterHref(book, chapterId))
+      router.push(chapterHref(book, chapterId, siteV2))
     },
-    [router, book]
+    [router, book, siteV2]
   )
 
   // เปลี่ยนตอน = ขึ้นบนสุดเสมอ (J3, plan.md §3.12) — ห้ามอ่านตำแหน่งค้างอัตโนมัติ
@@ -184,7 +185,7 @@ export default function ReaderShell({ book, chapter, chapters, blocks, resolvedS
     <>
       <ReaderHeader
         title={chapter.title}
-        backHref={bookHref(book)}
+        backHref={bookHref(book, siteV2)}
         visible={chromeVisible}
         onOpenSettings={() => setSettingsOpen(true)}
       />
@@ -217,7 +218,7 @@ export default function ReaderShell({ book, chapter, chapters, blocks, resolvedS
           <EndOfChapterCard
             nextChapterId={nextChapter?.id ?? null}
             nextChapterTitle={nextChapter?.title ?? null}
-            backHref={bookHref(book)}
+            backHref={bookHref(book, siteV2)}
             onNavigate={navigate}
           />
         ) : null}

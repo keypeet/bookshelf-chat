@@ -1,11 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Sarabun } from "next/font/google";
+import { Noto_Serif_Thai, Sarabun } from "next/font/google";
 import "./globals.css";
 
 const sarabun = Sarabun({
   variable: "--font-sarabun",
   subsets: ["thai", "latin"],
   weight: ["400", "600", "700"],
+  display: "swap",
+});
+
+const notoSerifThai = Noto_Serif_Thai({
+  variable: "--font-noto-serif-thai",
+  subsets: ["thai", "latin"],
   display: "swap",
 });
 
@@ -37,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className={`${sarabun.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="th" className={`${sarabun.variable} ${notoSerifThai.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
       </head>
